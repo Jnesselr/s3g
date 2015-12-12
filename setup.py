@@ -38,9 +38,9 @@ setup(
     package_data={'makerbot_driver.EEPROM': ['*.json'],
                   'makerbot_driver.Firmware': ['*.conf']},
     url='http://github.com/makerbot/s3g',
-    license='LICENSE.txt',
+    license='GNU AFFERO GENERAL PUBLIC LICENSE',
     description='Python driver to connect to MakerBot 3D Printers which use the s3g protocol',
     long_description=open('README.md').read(),
     platforms='any',
-    requires=['unittest2', 'pyserial']
+    requires=['unittest2', 'pyserial', 'Mock']
 )

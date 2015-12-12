@@ -1,60 +1,8 @@
 # makerbot_driver
 
-The makerbot_driver module is designed to communicate with a Makerbot Printer via makerbot_driver Packets.  The main objectives of this module are to  transform certain actions (i.e. move-to-a-position, heat-up-a-toolhead) into packets of information to be sent and to decode packets of information received from a printer into human parsable formats.  
-
-##VirtualEnv
-Due to makerbot_driver's dependency on our (Makerbot Industries) own version of pyserial, and for the sake of not polluting your own system that may have the 'true' version of pyserial installed, we suggest invoking makerbot_driver inside a virtualenv.  We provide the necessary files to operate inside a VirtualEnv that will install all dependencies for you without polluting your own machine.  
-
-First, obtain a copy of our version of pyserial.  This can be done VIA git.  On the same directory level as makerbot_driver, in a terminal window issue:
-
-    git clone git@github.com:makerbot/pyserial.git
-
-Dependent submodules must be up to date to run the virutalenv.  In the root directory of makerbot_driver, issue:
-  
-    git submodule update --init
-
-To create the VirtualEnv, inside the root directory of the makerbot_driver folder, issue:
-
-    python virtualenv.py virtualenv
-
-To configure the VirtualEnv, navigate to the root directory of the makerbot_driver driver and, in a terminal issue:
-
-    ./setup.sh
-
-To activate the VirtualEnv, in the root directory of the makerbot_driver driver, issue:
-
-    . virtualenv/bin/activate
-
-##AVRDude
-
-makerbot_driver uses AVRDude to upload firmware to the machine.  Because AVRDude is platform
-specific, the user needs to copy over the correct AVRDude executable to makerbot_driver/Firmware.
-
-On all platforms, the protocol for invoking AVRDude is to first search for a local AVRDude executable.
-In the event that no local binary is found, we attempt to invoke an AVRDude defined in the user's path.
-
-###Mac and Windows Distributions
-
-Running the copy_avrdude.py script will copy the correct avrdude executable from conveyor_bins.
-To execute:
-
-    python copy_avrdude.py
-
-###Linux Distributions
-
-On linux systems, we request that the user use a distribution service (i.e. 'apt-get') to pull
-down AVRDude.
+The makerbot_driver module is designed to communicate with a Makerbot Printer via makerbot_driver Packets.  The main objectives of this module are to  transform certain actions (i.e. move-to-a-position, heat-up-a-toolhead) into packets of information to be sent and to decode packets of information received from a printer into human parsable formats.
 
 ##Machine Connection
-
-To connect to a machine, you will need the following module:
-
-* [pySerial](http://pypi.python.org/pypi/pyserial).
-
-To run the unit tests, you will need the following modules:
-
-* [Mock](http://pypi.python.org/pypi/mock) (Note: Use version 0.8 or greater)
-* [unittest2](http://pypi.python.org/pypi/unittest2) (Python 2.6 and earlier)
 
 ## Example: Connecting to a Replicator
 Import both the makerbot_driver module and pyserial:
@@ -107,7 +55,7 @@ r.set_toolhead_temperature(0,0)
 r.toggle_axes(['x','y','z','a','b'],False)
 ```
 
-Those are the basics of how to control a machine. For more details, consult the [s3g protocol](https://github.com/makerbot/s3g/blob/master/doc/s3g_protocol.markdown) and the [s3g source](https://github.com/makerbot/s3g/blob/master/s3g/s3g.py).
+Those are the basics of how to control a machine. For more details, consult the [s3g protocol](https://github.com/jnesselr/s3g/blob/master/doc/s3g_protocol.markdown) and the [s3g source](https://github.com/jnesselr/s3g/blob/master/s3g/s3g.py).
 
 # Data types
 There are a few specific data formats that are used throughout this module, that warrant further explanation here.
