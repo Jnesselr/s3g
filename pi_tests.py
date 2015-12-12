@@ -13,15 +13,15 @@ except ImportError:
     import unittest
 import logging
 
-#Configure logging (This should only be done for testing, nowhere else)
+# Configure logging (This should only be done for testing, nowhere else)
 logging.basicConfig()
-#Disable logging
+# Disable logging
 logging.disable(100)
 
 if __name__ == "__main__":
-  all_tests = unittest.TestLoader().discover('tests', pattern='*.py') 
-  for test in all_tests:
-    pi_pattern = 'pi_test_'
-    if pi_pattern in str(test):
-      unittest.TextTestRunner(verbosity=0).run(test)
+    all_tests = unittest.TestLoader().discover('tests', pattern='*.py')
+    for test in all_tests:
+        pi_pattern = 'pi_test_'
+        if pi_pattern in str(test):
+            unittest.TextTestRunner(verbosity=0).run(test)
 sys.exit()

@@ -13,19 +13,9 @@ python dict named "ports".
 
 import logging
 
-try:
-    import serial.tools.list_ports as lp
-    list_ports_generator = lp.list_ports_by_vid_pid
-except ImportError:
-    import warnings
-    warnings.warn("No VID/PID detection in this version of PySerial; Automatic machine detection disabled.")
-    # We're using legacy pyserial. list_port_generator is an empty iterator.
+import serial.tools.list_ports
 
-    def list_ports_generator():
-        return
-        yield
-
-## Tools for using the global singleton MachineDetector
+# Tools for using the global singleton MachineDetector
 gMachineDetector = None
 
 
@@ -72,12 +62,18 @@ class MachineDetector(object):
 
     def __init__(self):
         self._log = logging.getLogger(self.__class__.__name__)
+        # Bots seen since the creation of this object
         self.machines_recently_seen = {}
-        # ^ Bots seen since the inception of this object
+
+        # Bots seen in the last scan
         self.machines_just_seen = {}
-        # ^ Bots seen in the last scan,
-        self.list_ports_by_vid_pid = list_ports_generator
-        # ^ Save func as a variable for testing purposes. hacky
+
+        if hasattr(serial.tools.list_ports, 'list_ports_by_vid_pid'):
+            self.list_ports_by_vid_pid = serial.tools.list_ports.list_ports_by_vid_pid
+        else:
+            def empty_function(vid, pid):
+                return []
+            self.list_ports_by_vid_pid = empty_function
 
     def get_machine_name_from_vid_pid(self, vid, pid):
         machine_name = None
@@ -110,7 +106,7 @@ class MachineDetector(object):
             try:
                 vid = gMachineClasses[machineClass]['vid']
                 pid_list = gMachineClasses[machineClass]['pid']
-               
+
                 new_machines = []
                 for pid in pid_list:
                   new_machines.extend(self.list_ports_by_vid_pid(vid, pid))

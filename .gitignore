@@ -1,10 +1,12 @@
 *.pyc
 *.swp
+*.idea
 
 dist/*
 build/*
 MANIFEST
 virtualenv
+.env
 htmlcov
 build
 dist

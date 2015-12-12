@@ -84,9 +84,9 @@ class StreamWriter(AbstractWriter):
                         # Try to read a byte
                         data = ''
                         while data == '':
-                            if (time.time() > start_time + makerbot_driver.timeout_length):
-                                self._log.error('{"event":"machine_timeout"}')
-                                raise makerbot_driver.TimeoutError(len(data), decoder.state)
+                            # if time.time() > start_time + makerbot_driver.timeout_length:
+                            #     self._log.error('{"event":"machine_timeout"}')
+                            #     raise makerbot_driver.TimeoutError(len(data), decoder.state)
 
                             # pySerial streams handle blocking read. Be sure to set up a timeout when
                             # initializing them, or this could hang forever
